@@ -27,4 +27,8 @@ describe('Bowling', function(){
 		expect(bowling.roll(-1)).toEqual("Give me a whole number which is between 1 and 10")
 	});
 
+	it('the game starts from the first frame', function(){
+		expect(bowling.frameCount).toEqual(1)
+	});
+
 });
