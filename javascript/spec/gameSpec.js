@@ -31,4 +31,10 @@ describe('Bowling', function(){
 		expect(bowling.frameCount).toEqual(1)
 	});
 
+	it('each frame has two rolls', function(){
+		bowling.roll(1)
+		bowling.roll(1)
+		expect(bowling.frameCount).toEqual(2)
+	});
+
 });
