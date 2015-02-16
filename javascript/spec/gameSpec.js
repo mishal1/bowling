@@ -6,91 +6,47 @@ describe('Game', function(){
 		bowling = new Game();
 	});
 
-	function multipleRolls(muiltiplier, value){
-		for(var i = 0; i < muiltiplier; i++){bowling.roll(value)}
+	function rollMany(number, pins){
+		for(var i = 0; i < number; i++){bowling.roll(pins)}
 	}
 
-	it('has a total of 0 at the beginning of the game', function(){
+	function rollSpare(){
+		bowling.roll(5)
+		bowling.roll(5)
+	}
+
+	function rollStrike(){
+		bowling.roll(10)
+	}
+
+	it('can have a gutter game', function(){
+		rollMany(20, 0)
 		expect(bowling.totalScore()).toEqual(0)
 	});
 
-	it('the total score increases after a user rolls', function(){
-		bowling.roll(1)
-		expect(bowling.totalScore()).toEqual(1)
+	it('the total score can change', function(){
+		rollMany(20, 1)
+		expect(bowling.totalScore()).toEqual(20)
 	});
 
-	it('the roll value cannot be greater than 10', function(){
-		expect(bowling.roll(11)).toEqual("Invalid value")
+	it('test score with a spare', function(){
+		rollSpare()
+		bowling.roll(3)
+		rollMany(17, 0)
+		expect(bowling.totalScore()).toEqual(16)
 	});
 
-	it('the roll must be an integer', function(){
-		expect(bowling.roll(0.5)).toEqual("Invalid value")
+	it('test score with strike', function(){
+		rollStrike()
+		bowling.roll(3)
+		bowling.roll(4)
+		rollMany(16, 0)
+		expect(bowling.totalScore()).toEqual(24)
 	});
 
-	it('the roll must be greater than 0', function(){
-		expect(bowling.roll(-1)).toEqual("Invalid value")
-	});
-
-	it('the sum of the rolls in each frame should be less than or equal to 10', function(){
-		bowling.roll(9)
-		expect(bowling.roll(2)).toEqual("Invalid value")
-	});
-
-	it('the sum of the rolls in each frame is not affected by strikes', function(){
-		bowling.roll(10)
-		bowling.roll(1)
-		expect(bowling.roll(1)).not.toEqual("Invalid value")
-	});
-
-	it('a bonus is added to the total score when there is a strike', function(){
-		bowling.roll(10)
-		multipleRolls(3, 1)
-		expect(bowling.totalScore()).toEqual(15)
-	});
-
-	it('a bonus is added to the total score when there is a spare', function(){
-		bowling.roll(9)
-		multipleRolls(4, 1)
-		expect(bowling.totalScore()).toEqual(14)		
-	});
-
-	it('a game is over after 10 frames', function(){
-		multipleRolls(20, 1)
-		expect(bowling.roll(1)).toEqual("The game is over")
-	});
-
-	it('a user can roll extra balls if they roll a strike', function(){
-		multipleRolls(18, 1)
-		bowling.roll(10)
-		expect(bowling.roll(1)).not.toEqual("The game is over")
-	});
-
-	it('a user can roll two extra balls if they roll a strike', function(){
-		multipleRolls(18, 1)
-		bowling.roll(10)
-		multipleRolls(2, 1)
-		expect(bowling.totalScore()).toEqual(30)
-	});
-
-	it('a user cannot roll more than two extra balls if they roll a strike in the final frame', function(){
-		multipleRolls(18, 1)
-		bowling.roll(10)
-		multipleRolls(2, 1)
-		expect(bowling.roll(1)).toEqual("The game is over")
-	});
-
-	it('a user can roll an extra ball if they roll a spare', function(){
-		multipleRolls(18, 1)
-		bowling.roll(9)
-		multipleRolls(2, 1)
-		expect(bowling.totalScore()).toEqual(29)
-	});
-
-	it('a user cannot roll more than one extra ball if they roll a spare in the final frame', function(){
-		multipleRolls(18, 1)
-		bowling.roll(9)
-		multipleRolls(2, 1)
-		expect(bowling.roll(1)).toEqual("The game is over")
+	it('test perfect game', function(){
+		rollMany(12, 10)
+		expect(bowling.totalScore()).toEqual(300)
 	});
 
 });
