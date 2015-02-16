@@ -10,17 +10,8 @@ Game.prototype.roll = function(numberOfPins) {
 };
 
 Game.prototype.totalScore = function() {
-  this.score = 0
-  this.frameIndex = 0
-  for(var frame = 0; frame < 10; frame++){ 
-    if(this.isStrike(this.frameIndex)){
-      this.addStrikeBonus()
-    } else if (this.isSpare(this.frameIndex)) {
-      this.addSpareBonus()
-    } else {
-      this.addScore()
-    }
-  }
+  this.resetVariables()
+  for(var frame = 0; frame < 10; frame++){ (this.isStrike(this.frameIndex) || this.isSpare(this.frameIndex)) ? this.bonus() : this.addScore() }
   return this.score;
 };
 
@@ -34,7 +25,7 @@ Game.prototype.isStrike = function(frameIndex) {
 
 Game.prototype.addStrikeBonus = function() {
   this.score += 10 + this.rolls[this.frameIndex + 1] + this.rolls[this.frameIndex + 2];
-  this.frameIndex ++;
+  this.frameIndex += 1;
 };
 
 Game.prototype.addSpareBonus = function() {
@@ -45,4 +36,13 @@ Game.prototype.addSpareBonus = function() {
 Game.prototype.addScore = function() {
   this.score += this.rolls[this.frameIndex] + this.rolls[this.frameIndex + 1];
   this.frameIndex += 2;
+};
+
+Game.prototype.bonus = function() {
+  this.isStrike(this.frameIndex) ? this.addStrikeBonus() : this.addSpareBonus();
+};
+
+Game.prototype.resetVariables = function() {
+  this.score = 0
+  this.frameIndex = 0
 };
