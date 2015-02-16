@@ -1,4 +1,4 @@
-describe('Bowling', function(){
+describe('Game', function(){
 
 	var bowling;
 
@@ -42,7 +42,7 @@ describe('Bowling', function(){
 		expect(bowling.roll(1)).not.toEqual("Invalid value")
 	});
 
-	it('bonus is added to the total score when there is a strike', function(){
+	it('a bonus is added to the total score when there is a strike', function(){
 		bowling.roll(10)
 		multipleRolls(3, 1)
 		expect(bowling.totalScore()).toEqual(15)
@@ -68,32 +68,28 @@ describe('Bowling', function(){
 	it('a user can roll two extra balls if they roll a strike', function(){
 		multipleRolls(18, 1)
 		bowling.roll(10)
-		bowling.roll(1)
-		bowling.roll(1)
+		multipleRolls(2, 1)
 		expect(bowling.totalScore()).toEqual(30)
 	});
 
 	it('a user cannot roll more than two extra balls if they roll a strike in the final frame', function(){
 		multipleRolls(18, 1)
 		bowling.roll(10)
-		bowling.roll(1)
-		bowling.roll(1)
+		multipleRolls(2, 1)
 		expect(bowling.roll(1)).toEqual("The game is over")
 	});
 
 	it('a user can roll an extra ball if they roll a spare', function(){
 		multipleRolls(18, 1)
 		bowling.roll(9)
-		bowling.roll(1)
-		bowling.roll(1)
+		multipleRolls(2, 1)
 		expect(bowling.totalScore()).toEqual(29)
 	});
 
 	it('a user cannot roll more than one extra ball if they roll a spare in the final frame', function(){
 		multipleRolls(18, 1)
 		bowling.roll(9)
-		bowling.roll(1)
-		bowling.roll(1)
+		multipleRolls(2, 1)
 		expect(bowling.roll(1)).toEqual("The game is over")
 	});
 
