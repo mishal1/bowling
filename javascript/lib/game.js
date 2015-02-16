@@ -10,5 +10,21 @@ Game.prototype.totalScore = function() {
 };
 
 Game.prototype.roll = function(number) {
-  this.allFrames.push(number)
+  if(this.validateNumber(number) && this.validValue(number)){return this.allFrames.push(number)}
+  return "Invalid value"
+};
+
+Game.prototype.validateNumber = function(number) {
+  return number <=10 && number % 1 === 0 && number >= 0
+};
+
+Game.prototype.validValue = function(number) {
+  var length = this.allFrames.length
+  if(length % 2 != 0){return this.checkSumOfFrame(length, number)}
+  return true
+};
+
+Game.prototype.checkSumOfFrame = function(length, score) {
+  if(this.allFrames[length-1] + score > 10){return false}
+  true
 };
