@@ -60,8 +60,7 @@ Game.prototype.spareBonus = function(length) {
 };
 
 Game.prototype.checkGameStatus = function() {
-  console.log(this.allFrames.length)
-  if(this.allFrames.length === 20){return false}
+  if(this.allFrames.length >= 20){return false}
   return true
 };
 
@@ -69,6 +68,18 @@ Game.prototype.checkIfGameIsOver = function(number) {
   if(this.checkGameStatus()){
     this.addScore(number)
   } else { 
+    return this.checkIfStrikeOrSpareInLastFrame(number)
+  }
+};
+
+Game.prototype.lastFrameSum = function() {
+  return this.allFrames[19] + this.allFrames[18]
+};
+
+Game.prototype.checkIfStrikeOrSpareInLastFrame = function(number) {
+  if( this.lastFrameSum() === 10 && this.allFrames.length < 22){
+    this.allFrames.push(number)
+  } else {
     return "The game is over"
   }
 };

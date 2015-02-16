@@ -59,4 +59,27 @@ describe('Bowling', function(){
 		expect(bowling.roll(1)).toEqual("The game is over")
 	});
 
+	it('a user can roll extra balls if they roll a strike', function(){
+		multipleRolls(18, 1)
+		bowling.roll(10)
+		expect(bowling.roll(1)).not.toEqual("The game is over")
+	});
+
+	it('a user can roll two extra balls if they roll a strike', function(){
+		multipleRolls(18, 1)
+		bowling.roll(10)
+		bowling.roll(1)
+		bowling.roll(1)
+		expect(bowling.totalScore()).toEqual(30)
+	});
+
+	it('a user cannot roll more than two extra balls if they roll a strike in the final frame', function(){
+		multipleRolls(18, 1)
+		bowling.roll(10)
+		bowling.roll(1)
+		bowling.roll(1)
+		expect(bowling.roll(1)).toEqual("The game is over")
+	});
+
+
 });
