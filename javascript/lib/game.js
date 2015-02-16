@@ -1,7 +1,6 @@
 function Game(){
 	this.frameCount = 1
   this.allFrames = []
-  this.isAStrike = false
   this.bonus = 0
 };
 
@@ -14,7 +13,7 @@ Game.prototype.totalScore = function() {
 Game.prototype.roll = function(number) {
   if(!(this.validateNumber(number) && this.validValue(number))){return "Invalid value"}
   this.checkBonus()
-  return this.addScore(number)
+  return this.checkIfGameIsOver(number)
 };
 
 Game.prototype.validateNumber = function(number) {
@@ -59,3 +58,18 @@ Game.prototype.spareBonus = function(length) {
     this.bonus += this.allFrames[length-2]
   }
 };
+
+Game.prototype.checkGameStatus = function() {
+  console.log(this.allFrames.length)
+  if(this.allFrames.length === 20){return false}
+  return true
+};
+
+Game.prototype.checkIfGameIsOver = function(number) {
+  if(this.checkGameStatus()){
+    this.addScore(number)
+  } else { 
+    return "The game is over"
+  }
+};
+

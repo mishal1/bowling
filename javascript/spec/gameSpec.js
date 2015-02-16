@@ -54,4 +54,9 @@ describe('Bowling', function(){
 		expect(bowling.totalScore()).toEqual(14)		
 	});
 
+	it('a game is over after 10 frames', function(){
+		multipleRolls(20, 1)
+		expect(bowling.roll(1)).toEqual("The game is over")
+	});
+
 });
