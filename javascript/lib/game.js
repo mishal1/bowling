@@ -1,5 +1,4 @@
 function Game(){
-	this.frameCount = 1
   this.allFrames = []
   this.bonus = 0
 };
@@ -78,10 +77,14 @@ Game.prototype.lastFrameSum = function() {
 
 Game.prototype.checkIfStrikeOrSpareInLastFrame = function(number) {
   if( this.lastFrameSum() === 10 && this.allFrames.length < 22){
-    this.allFrames.push(number)
-    if(this.allFrames[20]!= 0){this.allFrames.push(0)}
+    this.lastFrameBonus(number)
   } else {
     return "The game is over"
   }
+};
+
+Game.prototype.lastFrameBonus = function(number) {
+  this.allFrames.push(number)
+  if(this.allFrames[20]!= 0){this.allFrames.push(0)}
 };
 
