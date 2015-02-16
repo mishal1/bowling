@@ -81,5 +81,20 @@ describe('Bowling', function(){
 		expect(bowling.roll(1)).toEqual("The game is over")
 	});
 
+	it('a user can roll an extra ball if they roll a spare', function(){
+		multipleRolls(18, 1)
+		bowling.roll(9)
+		bowling.roll(1)
+		bowling.roll(1)
+		expect(bowling.totalScore()).toEqual(29)
+	});
+
+	it('a user cannot roll more than one extra ball if they roll a spare in the final frame', function(){
+		multipleRolls(18, 1)
+		bowling.roll(9)
+		bowling.roll(1)
+		bowling.roll(1)
+		expect(bowling.roll(1)).toEqual("The game is over")
+	});
 
 });

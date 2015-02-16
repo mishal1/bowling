@@ -79,6 +79,7 @@ Game.prototype.lastFrameSum = function() {
 Game.prototype.checkIfStrikeOrSpareInLastFrame = function(number) {
   if( this.lastFrameSum() === 10 && this.allFrames.length < 22){
     this.allFrames.push(number)
+    if(this.allFrames[20]!= 0){this.allFrames.push(0)}
   } else {
     return "The game is over"
   }
