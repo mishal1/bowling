@@ -1,9 +1,9 @@
 describe('Frame', function(){
 
-  var Roll, frame, content
+  var roll, frame, content
 
   beforeEach(function(){
-    frame = new Frame()
+    frame = new Frame("Roll")
   });
 
   it('a frame is initialized with two rolls', function(){

@@ -1,6 +1,7 @@
-function Frame(){
+function Frame(roll){
   this.rolls = []
-  for(var i = 0; i < 2; i++){this.rolls.push(new Roll())}
+  var string = 'new ' + roll + '()'
+  for(var i = 0; i < 2; i++){this.rolls.push(eval(string))}
 }
 
 Frame.prototype.sumOfFrame = function() {
